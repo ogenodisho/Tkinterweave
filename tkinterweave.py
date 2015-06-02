@@ -1,8 +1,9 @@
 from Tkinter import *
-from math import sin
+import brushes
+import colors
 
-# Returns a list of coords that represent,
-# in order, width, height, xPos, yPos.
+# Returns a tuple of coords that represent,
+# in order, width, height, xPos, yPos of a window.
 def get_window_geometry(window):
     l = []
     curr_value = ""
@@ -15,33 +16,9 @@ def get_window_geometry(window):
             curr_value = ""
     l.append(curr_value)
     
-    return list(map(int, l))
+    return tuple(map(int, l))
 
-def draw_backslash(x, y):
-    img.put("#ffffff", (x + 5, y - 5))
-    img.put("#ffffff", (x + 4, y - 4))
-    img.put("#ffffff", (x + 3, y - 3))
-    img.put("#ffffff", (x + 2, y - 2))
-    img.put("#ffffff", (x + 1, y - 1))
-    img.put("#ffffff", (x    , y    ))
-    img.put("#ffffff", (x - 1, y + 1))
-    img.put("#ffffff", (x - 2, y + 2))
-    img.put("#ffffff", (x - 3, y + 3))
-    img.put("#ffffff", (x - 4, y + 4))
-    img.put("#ffffff", (x - 5, y + 5))
 
-def draw_forwardslash(x, y):
-    img.put("#ffffff", (x - 5, y - 5))
-    img.put("#ffffff", (x - 4, y - 4))
-    img.put("#ffffff", (x - 3, y - 3))
-    img.put("#ffffff", (x - 2, y - 2))
-    img.put("#ffffff", (x - 1, y - 1))
-    img.put("#ffffff", (x    , y    ))
-    img.put("#ffffff", (x + 1, y + 1))
-    img.put("#ffffff", (x + 2, y + 2))
-    img.put("#ffffff", (x + 3, y + 3))
-    img.put("#ffffff", (x + 4, y + 4))
-    img.put("#ffffff", (x + 5, y + 5))
 
 def canvas_motion_left(event):
     x, y = event.x, event.y
@@ -49,7 +26,7 @@ def canvas_motion_left(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        draw_backslash(x, y)
+        brushes.draw_backslash(img, x, y, 1, colors.red)
 
     # reflect next draw call
     x, y = WIDTH - event.x, event.y
@@ -57,7 +34,7 @@ def canvas_motion_left(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        draw_forwardslash(x, y)
+        brushes.draw_forwardslash(img, x, y, 1, colors.blue)
      
 
 def canvas_motion_right(event):
@@ -66,7 +43,7 @@ def canvas_motion_right(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        draw_forwardslash(x, y)
+        brushes.draw_forwardslash(img, x, y, 1, colors.green)
 
     # reflect next draw call
     x, y = WIDTH - event.x, event.y
@@ -74,7 +51,7 @@ def canvas_motion_right(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        draw_backslash(x, y)
+        brushes.draw_backslash(img, x, y, 1, colors.yellow)
 
 def do_open():
     print "OPEN"
