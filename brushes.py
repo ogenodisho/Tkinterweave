@@ -37,3 +37,20 @@ def draw_forwardslash(img, x, y, scale, color):
     img.put(color, (x + 3, y + 3))
     img.put(color, (x + 4, y + 4))
     img.put(color, (x + 5, y + 5))
+
+
+def draw_cross(img, x, y, scale, color):
+    draw_forwardslash(img, x, y, scale, color)
+    draw_backslash(img, x, y, scale, color)
+    
+def draw_dot(img, x, y, scale, color):
+    # do something with the scale
+    img.put(color, (x    , y    ))
+    img.put(color, (x + 1, y    ))
+    img.put(color, (x - 1, y    ))
+    img.put(color, (x    , y + 1))
+    img.put(color, (x    , y - 1))
+    img.put(color, (x + 1, y - 1))
+    img.put(color, (x + 1, y + 1))
+    img.put(color, (x - 1, y - 1))
+    img.put(color, (x - 1, y + 1))
