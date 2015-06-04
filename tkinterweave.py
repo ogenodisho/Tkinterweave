@@ -1,24 +1,10 @@
 from Tkinter import *
 import brushes
 import colors
-
-# Returns a tuple of coords that represent,
-# in order, width, height, xPos, yPos of a window.
-def get_window_geometry(window):
-    l = []
-    curr_value = ""
-    
-    for letter in window.geometry():
-        if letter.isdigit():
-            curr_value += letter
-        else:
-            l.append(curr_value)
-            curr_value = ""
-    l.append(curr_value)
-    
-    return tuple(map(int, l))
-
-
+import menu
+import controls
+import dimensions
+import utils
 
 def canvas_motion_left(event):
     x, y = event.x, event.y
@@ -26,15 +12,15 @@ def canvas_motion_left(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        brushes.draw_backslash(img, x, y, 1, colors.red)
+        brushes.draw_backslash(img, x, y, 1, colors.WHITE)
 
     # reflect next draw call
-    x, y = WIDTH - event.x, event.y
+    x, y = dimensions.PI_WIDTH - event.x, event.y
     
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        brushes.draw_forwardslash(img, x, y, 1, colors.blue)
+        brushes.draw_forwardslash(img, x, y, 1, colors.WHITE)
      
 
 def canvas_motion_right(event):
@@ -43,74 +29,58 @@ def canvas_motion_right(event):
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        brushes.draw_forwardslash(img, x, y, 1, colors.green)
+        brushes.draw_forwardslash(img, x, y, 1, colors.WHITE)
 
     # reflect next draw call
-    x, y = WIDTH - event.x, event.y
+    x, y = dimensions.PI_WIDTH - event.x, event.y
     
     if x + 5 < 0 or x - 5 < 0 or y + 5 < 0 or y - 5 < 0:
         return
     else:
-        brushes.draw_backslash(img, x, y, 1, colors.yellow)
-
-def do_open():
-    print "OPEN"
-
-def do_save():
-    print "SAVE"
-
-def do_open():
-    print "OPEN"
-
-def do_cut():
-    print "CUT"
-
-def do_copy():
-    print "COPY"
-
-def do_paste():
-    print "PASTE"
-
-def do_about():
-    geometry = get_window_geometry(window)
-    toplevel = Toplevel()
-    toplevel.title("About Tkinterweave")
-    toplevel.geometry("%dx%d+%d+%d" % (260, 150, geometry[2] + 30, geometry[3] + 80))
-    label1 = Label(toplevel, text="Tkinterweave is a shitty desktop application made to trick CS101 students into thinking that tkinter is useful.\n", wraplength=200, anchor=W, justify=CENTER)
-    label1.pack()
-    label2 = Label(toplevel, text="Brought to you by:\nOgen Odisho & Krasni Shrivastava\n\nCopyright (c) 2015.", wraplength=200, anchor=W, justify=CENTER)
-    label2.pack()
+        brushes.draw_backslash(img, x, y, 1, colors.WHITE)
 
 def main():
-    global img, HEIGHT, WIDTH, window
+    global img
     
-    WIDTH, HEIGHT = 640, 480
     window = Tk()
     window.title("Tkinterweave")
-    canvas = Canvas(window, width=WIDTH, height=HEIGHT, bg="#000000")
-    canvas.pack()
-    img = PhotoImage(width=WIDTH, height=HEIGHT)
-    canvas.create_image((WIDTH/2, HEIGHT/2), image=img, state="normal")
+    window.geometry(utils.get_window_geometry_string([dimensions.MW_WIDTH,
+                                                      dimensions.MW_HEIGHT,
+                                                      0,
+                                                      0]))
+    canvas = Canvas(window,
+                    width=dimensions.PI_WIDTH,
+                    height=dimensions.PI_HEIGHT,
+                    bg=colors.BLACK)
+    canvas.place(x=0, y=0,
+                 width=dimensions.PI_WIDTH,
+                 height=dimensions.PI_HEIGHT)
+    img = PhotoImage(width=dimensions.PI_WIDTH,
+                     height=dimensions.PI_HEIGHT)
+    canvas.create_image((dimensions.PI_WIDTH / 2, dimensions.PI_HEIGHT / 2),
+                        image=img,
+                        state="normal")
 
     menubar = Menu(window)
 
     # create a pulldown menu, and add it to the menu bar
     filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="Open", command=do_open)
-    filemenu.add_command(label="Save", command=do_save)
+    filemenu.add_command(label="New", command=lambda: menu.do_new(img))
+    filemenu.add_command(label="Open", command=lambda: menu.do_open())
+    filemenu.add_command(label="Save", command=lambda: menu.do_save())
     filemenu.add_separator()
     filemenu.add_command(label="Exit", command=window.destroy)
     menubar.add_cascade(label="File", menu=filemenu)
 
     # create more pulldown menus
     editmenu = Menu(menubar, tearoff=0)
-    editmenu.add_command(label="Cut", command=do_cut)
-    editmenu.add_command(label="Copy", command=do_copy)
-    editmenu.add_command(label="Paste", command=do_paste)
+    editmenu.add_command(label="Cut", command=lambda: menu.do_cut())
+    editmenu.add_command(label="Copy", command=lambda: menu.do_copy())
+    editmenu.add_command(label="Paste", command=lambda: menu.do_paste())
     menubar.add_cascade(label="Edit", menu=editmenu)
 
     helpmenu = Menu(menubar, tearoff=0)
-    helpmenu.add_command(label="About", command=do_about)
+    helpmenu.add_command(label="About", command=lambda: menu.do_about(window))
     menubar.add_cascade(label="Help", menu=helpmenu)
 
     # display the menu
@@ -119,8 +89,8 @@ def main():
     canvas.bind("<B1-Motion>", canvas_motion_left)
     canvas.bind("<B3-Motion>", canvas_motion_right)
 
-    for i in range(HEIGHT):
-        img.put("#800085", (WIDTH / 2, i))
+    for i in range(img.height()):
+        img.put("#800085", (img.width() / 2, i))
 
     window.mainloop()
 

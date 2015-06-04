@@ -1,5 +1,5 @@
-# Returns a tuple of coords that represent,
-# in order, width, height, xPos, yPos of a window.
+# Returns a tuple of coords that represent
+# (in order) the width, height, xPos, yPos of a window.
 def get_window_geometry(window):
     l = []
     curr_value = ""
@@ -13,3 +13,18 @@ def get_window_geometry(window):
     l.append(curr_value)
     
     return tuple(map(int, l))
+
+# Returns a geometry string from a tuple of coords that represent
+# (in order) the width, height, xPos, yPos of a window.
+def get_window_geometry_string(window_geometry):
+    return "%dx%d+%d+%d" % (window_geometry[0],
+                            window_geometry[1],
+                            window_geometry[2],
+                            window_geometry[3])
+
+
+def fill_img(img, color):
+    width = img.width()
+    height = img.height()
+    horizontal_line = "{" + " ".join([color]*width) + "}"
+    img.put(" ".join([horizontal_line]*height))

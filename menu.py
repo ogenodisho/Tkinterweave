@@ -1,5 +1,14 @@
 from Tkinter import *
 import utils
+import colors
+
+# reset the img to one color
+def do_new(img):
+    utils.fill_img(img, colors.BLACK)
+
+    # reset the horizontal reflector
+    for i in range(480):
+        img.put("#800085", (640 / 2, i))
 
 def do_open():
     print "OPEN"
