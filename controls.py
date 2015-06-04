@@ -2,9 +2,9 @@ LEFT_CLICK = "<Button-1>"
 MIDDLE_CLICK = "<Button-2>"
 RIGHT_CLICK = "<Button-3>"
 
-LEFT_MOVE = "<B1-Motion>"
-MIDDLE_MOVE = "<B2-Motion>"
-RIGHT_MOVE = "<B3-Motion>"
+LEFT_DRAG = "<B1-Motion>"
+MIDDLE_DRAG = "<B2-Motion>"
+RIGHT_DRAG = "<B3-Motion>"
 
 LEFT_RELEASE = "<ButtonRelease-1>"
 MIDDLE_RELEASE = "<ButtonRelease-2>"

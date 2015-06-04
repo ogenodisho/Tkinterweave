@@ -8,7 +8,7 @@ def do_new(img):
 
     # reset the horizontal reflector
     for i in range(480):
-        img.put("#800085", (640 / 2, i))
+        img.put(colors.GOLDENROD, (640 / 2, i))
 
 def do_open():
     print "OPEN"

@@ -5,6 +5,7 @@ import menu
 import controls
 import dimensions
 import utils
+import strings
 
 def canvas_motion_left(event):
     x, y = event.x, event.y
@@ -65,32 +66,32 @@ def main():
 
     # create a pulldown menu, and add it to the menu bar
     filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="New", command=lambda: menu.do_new(img))
-    filemenu.add_command(label="Open", command=lambda: menu.do_open())
-    filemenu.add_command(label="Save", command=lambda: menu.do_save())
+    filemenu.add_command(label=strings.NEW, command=lambda: menu.do_new(img))
+    filemenu.add_command(label=strings.OPEN, command=lambda: menu.do_open())
+    filemenu.add_command(label=strings.SAVE, command=lambda: menu.do_save())
     filemenu.add_separator()
-    filemenu.add_command(label="Exit", command=window.destroy)
-    menubar.add_cascade(label="File", menu=filemenu)
+    filemenu.add_command(label=strings.EXIT, command=window.destroy)
+    menubar.add_cascade(label=strings.FILE, menu=filemenu)
 
     # create more pulldown menus
     editmenu = Menu(menubar, tearoff=0)
-    editmenu.add_command(label="Cut", command=lambda: menu.do_cut())
-    editmenu.add_command(label="Copy", command=lambda: menu.do_copy())
-    editmenu.add_command(label="Paste", command=lambda: menu.do_paste())
-    menubar.add_cascade(label="Edit", menu=editmenu)
+    editmenu.add_command(label=strings.CUT, command=lambda: menu.do_cut())
+    editmenu.add_command(label=strings.COPY, command=lambda: menu.do_copy())
+    editmenu.add_command(label=strings.PASTE, command=lambda: menu.do_paste())
+    menubar.add_cascade(label=strings.EDIT, menu=editmenu)
 
     helpmenu = Menu(menubar, tearoff=0)
-    helpmenu.add_command(label="About", command=lambda: menu.do_about(window))
-    menubar.add_cascade(label="Help", menu=helpmenu)
+    helpmenu.add_command(label=strings.ABOUT, command=lambda: menu.do_about(window))
+    menubar.add_cascade(label=strings.HELP, menu=helpmenu)
 
     # display the menu
     window.config(menu=menubar)
     
-    canvas.bind("<B1-Motion>", canvas_motion_left)
-    canvas.bind("<B3-Motion>", canvas_motion_right)
+    canvas.bind(controls.LEFT_DRAG, canvas_motion_left)
+    canvas.bind(controls.RIGHT_DRAG, canvas_motion_right)
 
     for i in range(img.height()):
-        img.put("#800085", (img.width() / 2, i))
+        img.put(colors.GOLDENROD, (img.width() / 2, i))
 
     window.mainloop()
 
