@@ -1,3 +1,8 @@
+'''
+This module loads images to be used inside tkinterweave
+and puts them in a single variable for ease of use.
+'''
+
 from Tkinter import *
 
 CALLIGRAPHY_LEFT = None

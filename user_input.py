@@ -1,3 +1,8 @@
+'''
+Unique tkinter strings that are used to supply
+to listeners to tell them what to listen for.
+'''
+
 LEFT_CLICK = "<Button-1>"
 MIDDLE_CLICK = "<Button-2>"
 RIGHT_CLICK = "<Button-3>"

@@ -1,3 +1,9 @@
+'''
+Color constants.
+
+TODO - these colors are fuckn wrong for some fkn reason.
+'''
+
 ALICEBLUE = "#FFF8F0"
 ANTIQUEWHITE = "#D7EBFA"
 AQUA = "#FFFF00"
@@ -117,7 +123,7 @@ PINK = "#CBC0FF"
 PLUM = "#DDA0DD"
 POWDERBLUE = "#E6E0B0"
 PURPLE = "#800080"
-RED = "#FF0000"
+RED = "#FF0000" # why is this coming out as blue wtff
 ROSYBROWN = "#8F8FBC"
 ROYALBLUE = "#E16941"
 SADDLEBROWN = "#13458B"

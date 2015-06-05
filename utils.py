@@ -1,3 +1,8 @@
+'''
+This module is just for random/helpful utility methods
+that many other modules may find useful.
+'''
+
 # Returns a tuple of coords that represent
 # (in order) the width, height, xPos, yPos of a window.
 def get_window_geometry(window):
@@ -21,10 +26,4 @@ def get_window_geometry_string(window_geometry):
                             window_geometry[1],
                             window_geometry[2],
                             window_geometry[3])
-
-
-def fill_img(img, color):
-    width = img.width()
-    height = img.height()
-    horizontal_line = "{" + " ".join([color]*width) + "}"
-    img.put(" ".join([horizontal_line]*height))
+    

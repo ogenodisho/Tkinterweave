@@ -1,3 +1,7 @@
+'''
+English word constants.
+'''
+
 ABOUT = "About"
 COPY = "Copy"
 CUT = "Cut"
