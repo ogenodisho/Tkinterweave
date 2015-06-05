@@ -10,6 +10,25 @@ They each take four parameters.
     color - hex value e.g. #ffffff
 '''
 
+import global_configs
+import tool_names
+
+def paint(img, x, y, scale, color, reflected):
+    if global_configs.CURRENT_TOOL == tool_names.PENCIL:
+        draw_dot(img, x, y, scale, color)
+    elif global_configs.CURRENT_TOOL == tool_names.SPRAY_CAN:
+        draw_dot(img, x, y, scale, color)
+    elif global_configs.CURRENT_TOOL == tool_names.CALLIGRAPHY_LEFT:
+        if reflected:
+            draw_backslash(img, x, y, scale, color)
+        else:
+            draw_forwardslash(img, x, y, scale, color)
+    elif global_configs.CURRENT_TOOL == tool_names.CALLIGRAPHY_RIGHT:
+        if reflected:
+            draw_forwardslash(img, x, y, scale, color)
+        else:
+            draw_backslash(img, x, y, scale, color)
+
 def draw_backslash(img, x, y, scale, color):
     # do something with the scale
     img.put(color, (x + 5, y - 5))
