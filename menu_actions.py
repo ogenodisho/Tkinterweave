@@ -5,6 +5,7 @@ tkinterweave's menu system.
 '''
 
 from Tkinter import *
+import tkFileDialog
 import utils
 import colors
 import global_configs
@@ -22,14 +23,37 @@ def do_new():
     for i in range(dimensions.PI_HEIGHT):
         global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
 
+# THIS TAKES FOR FUCKING EVER
 def do_open():
-    print "OPEN"
+    opened_image = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
+
+    # copy the opened image into the current one
+    for i in range(dimensions.PI_WIDTH):
+        for j in range(dimensions.PI_HEIGHT):
+            global_configs.IMG.put(utils.rgb_to_hex(opened_image.get(i, j)), (i, j))
+    
+    # restore the vertical reflector while preserving overlaps
+    rgb_black = utils.hex_to_rgb(colors.BLACK)
+    for i in range(dimensions.PI_HEIGHT):
+        if global_configs.IMG.get(dimensions.PI_WIDTH / 2, i) == rgb_black:
+            global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
 
 def do_save():
-    print "SAVE"
+    filename_to_save = tkFileDialog.asksaveasfilename(filetypes=[('GIF image', '*.gif')])
+    if not filename_to_save.endswith(".gif"):
+         filename_to_save += ".gif"
+    
+    # delete the vertical reflector while preserving overlaps
+    rgb_goldenrod = utils.hex_to_rgb(colors.GOLDENROD)
+    for i in range(dimensions.PI_HEIGHT):
+        if global_configs.IMG.get(dimensions.PI_WIDTH / 2, i) == rgb_goldenrod:
+            global_configs.IMG.put(colors.BLACK, (dimensions.PI_WIDTH / 2, i))
+        
+    global_configs.IMG.write(filename_to_save, format="gif")
 
-def do_open():
-    print "OPEN"
+    # reset the vertical reflector
+    for i in range(dimensions.PI_HEIGHT):
+        global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
 
 def do_cut():
     print "CUT"

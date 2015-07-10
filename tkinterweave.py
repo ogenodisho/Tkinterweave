@@ -105,6 +105,9 @@ def main():
     spray_can_button.grid(row=0, column=1)
     calligraphy_left_button.grid(row=1, column=0)
     calligraphy_right_button.grid(row=1, column=1)
+
+    # for some reason if we don't call this is doesnt save right the first time round
+    menu_actions.do_new()
     
     window.mainloop()
 

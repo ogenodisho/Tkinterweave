@@ -26,4 +26,17 @@ def get_window_geometry_string(window_geometry):
                             window_geometry[1],
                             window_geometry[2],
                             window_geometry[3])
+
+# converts "255 255 255" to #ffffff
+def rgb_to_hex(rgb):
+    rgb = tuple(int(x) for x in rgb.strip().split(" "))
+    
+    return "#" + '%02x%02x%02x' % rgb
+
+# converts #ffffff to "255 255 255"
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    tuple_rgb = tuple(int(value[i:i+lv/3], 16) for i in range(0, lv, lv/3))
+    return " ".join(str(x) for x in tuple_rgb)
     
