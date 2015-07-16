@@ -26,7 +26,6 @@ def main():
                                                       dimensions.MW_HEIGHT,
                                                       0,
                                                       0]))
-
     # create the canvas
     canvas = Canvas(window,
                     width=dimensions.PI_WIDTH,
@@ -37,6 +36,7 @@ def main():
     canvas.place(x=0, y=0,
                  width=dimensions.PI_WIDTH,
                  height=dimensions.PI_HEIGHT)
+    
     
     # populate the IMG global variable which is a PhotoImage that will be drawn on
     global_configs.IMG = PhotoImage(width=dimensions.PI_WIDTH,
@@ -88,11 +88,15 @@ def main():
     # place the frame to the right of the canvas and
     # make it go until the end of the window in the x and y
     frame = Frame(window, bg=colors.WHITE)
-    frame.place(x=dimensions.PI_WIDTH,
+    frame.place(x=window.winfo_width() - 78,
                 y=0,
-                width=dimensions.MW_WIDTH - dimensions.PI_WIDTH,
-                height=dimensions.PI_HEIGHT)
+                width=78,
+                height=78 * 2)
 
+    # pack the canvas and paint tool frames - TODO, change the image on resize
+    frame.pack(fill=Y, expand=NO, side=RIGHT)
+    canvas.pack(fill=BOTH, expand=YES, side=LEFT)
+    
     # create the buttons with images and on click listeners
     calligraphy_left_button = Button(frame, image=images.CALLIGRAPHY_LEFT, command=lambda: tool_actions.paint_tool_pressed(calligraphy_left_button, tool_names.CALLIGRAPHY_LEFT))
     calligraphy_right_button = Button(frame, image=images.CALLIGRAPHY_RIGHT, command=lambda: tool_actions.paint_tool_pressed(calligraphy_right_button, tool_names.CALLIGRAPHY_RIGHT))
