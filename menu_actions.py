@@ -28,8 +28,8 @@ def do_open():
     opened_image = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
 
     # copy the opened image into the current one
-    for i in range(dimensions.PI_WIDTH):
-        for j in range(dimensions.PI_HEIGHT):
+    for i in range(opened_image.width()):
+        for j in range(opened_image.height()):
             global_configs.IMG.put(utils.rgb_to_hex(opened_image.get(i, j)), (i, j))
     
     # restore the vertical reflector while preserving overlaps
