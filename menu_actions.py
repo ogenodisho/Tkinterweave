@@ -14,46 +14,32 @@ import dimensions
 # Called when file > new is clicked
 # Reset the img to one color
 def do_new():
+    # resize the canvas to the default
+    global_configs.CANVAS.config(width=dimensions.PI_WIDTH, height=dimensions.PI_HEIGHT)
+    
     width = global_configs.IMG.width()
     height = global_configs.IMG.height()
     horizontal_line = "{" + " ".join([colors.BLACK]*width) + "}"
     global_configs.IMG.put(" ".join([horizontal_line]*height))
 
-    # reset the vertical reflector
-    for i in range(dimensions.PI_HEIGHT):
-        global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
-
 # THIS TAKES FOR FUCKING EVER
 def do_open():
     opened_image = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
+
+    # set the size of the canvas to the size of the image - don't know why I have to minus 2...
+    global_configs.CANVAS.config(width=opened_image.width() - 2, height=opened_image.height() - 2)
 
     # copy the opened image into the current one
     for i in range(opened_image.width()):
         for j in range(opened_image.height()):
             global_configs.IMG.put(utils.rgb_to_hex(opened_image.get(i, j)), (i, j))
-    
-    # restore the vertical reflector while preserving overlaps
-    rgb_black = utils.hex_to_rgb(colors.BLACK)
-    for i in range(dimensions.PI_HEIGHT):
-        if global_configs.IMG.get(dimensions.PI_WIDTH / 2, i) == rgb_black:
-            global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
 
 def do_save():
     filename_to_save = tkFileDialog.asksaveasfilename(filetypes=[('GIF image', '*.gif')])
     if not filename_to_save.endswith(".gif"):
          filename_to_save += ".gif"
-    
-    # delete the vertical reflector while preserving overlaps
-    rgb_goldenrod = utils.hex_to_rgb(colors.GOLDENROD)
-    for i in range(dimensions.PI_HEIGHT):
-        if global_configs.IMG.get(dimensions.PI_WIDTH / 2, i) == rgb_goldenrod:
-            global_configs.IMG.put(colors.BLACK, (dimensions.PI_WIDTH / 2, i))
         
     global_configs.IMG.write(filename_to_save, format="gif")
-
-    # reset the vertical reflector
-    for i in range(dimensions.PI_HEIGHT):
-        global_configs.IMG.put(colors.GOLDENROD, (dimensions.PI_WIDTH / 2, i))
 
 def do_cut():
     print "CUT"

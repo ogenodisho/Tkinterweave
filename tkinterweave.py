@@ -27,28 +27,27 @@ def main():
                                                       0,
                                                       0]))
     # create the canvas
-    canvas = Canvas(window,
+    global_configs.CANVAS = Canvas(window,
                     width=dimensions.PI_WIDTH,
                     height=dimensions.PI_HEIGHT,
                     bg=colors.BLACK)
     
     # place the canvas in the top left of the parent window
-    canvas.place(x=0, y=0,
+    global_configs.CANVAS.place(x=0, y=0,
                  width=dimensions.PI_WIDTH,
                  height=dimensions.PI_HEIGHT)
-    
     
     # populate the IMG global variable which is a PhotoImage that will be drawn on
     global_configs.IMG = PhotoImage(width=dimensions.PI_WIDTH,
                      height=dimensions.PI_HEIGHT)
     
     # put the image on the canvas
-    canvas.create_image((dimensions.PI_WIDTH / 2, dimensions.PI_HEIGHT / 2),
+    global_configs.CANVAS.create_image((dimensions.PI_WIDTH / 2, dimensions.PI_HEIGHT / 2),
                         image=global_configs.IMG,
                         state="normal")
     
     # add left mouse moved listener to the canvas
-    canvas.bind(user_input.LEFT_DRAG, tool_actions.canvas_left_drag)
+    global_configs.CANVAS.bind(user_input.LEFT_DRAG, tool_actions.canvas_left_drag)
 
     # create an empty menu bar to populate
     menubar = Menu(window)
@@ -95,7 +94,7 @@ def main():
 
     # pack the canvas and paint tool frames - TODO, change the image on resize
     frame.pack(fill=Y, expand=NO, side=RIGHT)
-    canvas.pack(fill=BOTH, expand=YES, side=LEFT)
+    global_configs.CANVAS.pack(fill=NONE, expand=YES, side=TOP)
     
     # create the buttons with images and on click listeners
     calligraphy_left_button = Button(frame, image=images.CALLIGRAPHY_LEFT, command=lambda: tool_actions.paint_tool_pressed(calligraphy_left_button, tool_names.CALLIGRAPHY_LEFT))

@@ -12,4 +12,5 @@ import colors
 CURRENT_TOOL = tool_names.PENCIL # default tool is pencil
 CURRENT_COLOR = colors.WHITE # default color is white
 IMG = None # initialized in main
+CANVAS = None # initialized in main
 PAINT_TOOL_BUTTONS = () # populated in main

@@ -35,7 +35,7 @@ def canvas_left_drag(event):
     brushes.paint(x, y, 1, colors.WHITE, False)
 
     # reflect next draw call horizontally
-    x, y = dimensions.PI_WIDTH - event.x, event.y
+    x, y = global_configs.CANVAS.winfo_width() - event.x, event.y
 
     # paint the reflected stuff
     brushes.paint(x, y, 1, colors.WHITE, True)
