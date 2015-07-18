@@ -42,7 +42,8 @@ def main():
                      height=dimensions.PI_HEIGHT)
     
     # put the image on the canvas
-    global_configs.CANVAS.create_image((dimensions.PI_WIDTH / 2, dimensions.PI_HEIGHT / 2),
+    global_configs.CANVAS.create_image(0, 0,
+                        anchor=NW,
                         image=global_configs.IMG,
                         state="normal")
     
@@ -63,7 +64,8 @@ def main():
 
     # create and populate a pulldown menu called edit
     editmenu = Menu(menubar, tearoff=0)
-    editmenu.add_command(label=strings.CUT, command=lambda: menu_actions.do_cut())
+    editmenu.add_command(label=strings.ZOOM + " in x2", command=lambda: menu_actions.do_zoom(2))
+    editmenu.add_command(label=strings.ZOOM + " out x2", command=lambda: menu_actions.do_zoom(0.5))
     editmenu.add_command(label=strings.COPY, command=lambda: menu_actions.do_copy())
     editmenu.add_command(label=strings.PASTE, command=lambda: menu_actions.do_paste())
     menubar.add_cascade(label=strings.EDIT, menu=editmenu)

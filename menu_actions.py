@@ -24,15 +24,16 @@ def do_new():
 
 # THIS TAKES FOR FUCKING EVER
 def do_open():
-    opened_image = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
+    global_configs.IMG = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
 
     # set the size of the canvas to the size of the image - don't know why I have to minus 2...
-    global_configs.CANVAS.config(width=opened_image.width() - 2, height=opened_image.height() - 2)
+    global_configs.CANVAS.config(width=global_configs.IMG.width() - 2, height=global_configs.IMG.height() - 2)
 
-    # copy the opened image into the current one
-    for i in range(opened_image.width()):
-        for j in range(opened_image.height()):
-            global_configs.IMG.put(utils.rgb_to_hex(opened_image.get(i, j)), (i, j))
+    # draw the new image on the canvas
+    global_configs.CANVAS.create_image(0, 0,
+                        anchor=NW,
+                        image=global_configs.IMG,
+                        state="normal")
 
 def do_save():
     filename_to_save = tkFileDialog.asksaveasfilename(filetypes=[('GIF image', '*.gif')])
@@ -41,8 +42,27 @@ def do_save():
         
     global_configs.IMG.write(filename_to_save, format="gif")
 
-def do_cut():
-    print "CUT"
+def do_zoom(sample_size):
+    zooming_in = sample_size > 1
+    if not zooming_in:
+        sample_size = 1 / sample_size
+
+    if zooming_in:
+        # set the size of the canvas to the size of the image - don't know why I have to minus 2...
+        global_configs.CANVAS.config(width=global_configs.IMG.width() * sample_size - 2, height=global_configs.IMG.height() * sample_size - 2)
+    
+        global_configs.IMG = global_configs.IMG.zoom(sample_size, sample_size)
+    else:
+        # set the size of the canvas to the size of the image - don't know why I have to minus 2...
+        global_configs.CANVAS.config(width=global_configs.IMG.width() / sample_size - 2, height=global_configs.IMG.height() / sample_size - 2)
+
+        global_configs.IMG = global_configs.IMG.subsample(int(sample_size), int(sample_size))
+
+    # draw the new image on the canvas
+    global_configs.CANVAS.create_image(0, 0,
+                        anchor=NW,
+                        image=global_configs.IMG,
+                        state="normal")
 
 def do_copy():
     print "COPY"

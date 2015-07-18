@@ -4,6 +4,7 @@ English word constants.
 
 ABOUT = "About"
 COPY = "Copy"
+ZOOM = "Zoom"
 CUT = "Cut"
 EDIT = "Edit"
 EXIT = "Exit"
