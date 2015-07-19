@@ -22,7 +22,6 @@ def do_new():
     horizontal_line = "{" + " ".join([colors.BLACK]*width) + "}"
     global_configs.IMG.put(" ".join([horizontal_line]*height))
 
-# THIS TAKES FOR FUCKING EVER
 def do_open():
     global_configs.IMG = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))
 
@@ -35,34 +34,16 @@ def do_open():
                         image=global_configs.IMG,
                         state="normal")
 
+    # reset the zoom slider and factor
+    global_configs.ZOOM_FACTOR = 1
+    global_configs.ZOOMSLIDER.set(global_configs.ZOOM_FACTOR)
+
 def do_save():
     filename_to_save = tkFileDialog.asksaveasfilename(filetypes=[('GIF image', '*.gif')])
     if not filename_to_save.endswith(".gif"):
          filename_to_save += ".gif"
         
     global_configs.IMG.write(filename_to_save, format="gif")
-
-def do_zoom(sample_size):
-    zooming_in = sample_size > 1
-    if not zooming_in:
-        sample_size = 1 / sample_size
-
-    if zooming_in:
-        # set the size of the canvas to the size of the image - don't know why I have to minus 2...
-        global_configs.CANVAS.config(width=global_configs.IMG.width() * sample_size - 2, height=global_configs.IMG.height() * sample_size - 2)
-    
-        global_configs.IMG = global_configs.IMG.zoom(sample_size, sample_size)
-    else:
-        # set the size of the canvas to the size of the image - don't know why I have to minus 2...
-        global_configs.CANVAS.config(width=global_configs.IMG.width() / sample_size - 2, height=global_configs.IMG.height() / sample_size - 2)
-
-        global_configs.IMG = global_configs.IMG.subsample(int(sample_size), int(sample_size))
-
-    # draw the new image on the canvas
-    global_configs.CANVAS.create_image(0, 0,
-                        anchor=NW,
-                        image=global_configs.IMG,
-                        state="normal")
 
 def do_copy():
     print "COPY"
