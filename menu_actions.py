@@ -14,13 +14,18 @@ import dimensions
 # Called when file > new is clicked
 # Reset the img to one color
 def do_new():
-    # resize the canvas to the default
+    # resize the canvas and the image to the default
     global_configs.CANVAS.config(width=dimensions.PI_WIDTH, height=dimensions.PI_HEIGHT)
+    global_configs.IMG.config(width=dimensions.PI_WIDTH, height=dimensions.PI_HEIGHT)
     
     width = global_configs.IMG.width()
     height = global_configs.IMG.height()
     horizontal_line = "{" + " ".join([colors.BLACK]*width) + "}"
     global_configs.IMG.put(" ".join([horizontal_line]*height))
+    
+    # reset the zoom slider and factor
+    global_configs.ZOOM_FACTOR = 1
+    global_configs.ZOOMSLIDER.set(global_configs.ZOOM_FACTOR)
 
 def do_open():
     global_configs.IMG = PhotoImage(file=tkFileDialog.askopenfilename(filetypes=[('GIF image', '*.gif')]))

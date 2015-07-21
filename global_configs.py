@@ -15,4 +15,5 @@ IMG = None # initialized in main
 CANVAS = None # initialized in main
 ZOOMSLIDER = None # initialized in main
 ZOOM_FACTOR = 1 # default zoom is 1
+ZOOM_LEVELS = [0.5, 1, 2, 4]
 PAINT_TOOL_BUTTONS = () # populated in main

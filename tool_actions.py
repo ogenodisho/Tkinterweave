@@ -27,8 +27,12 @@ def paint_tool_pressed(button_object, tool_name):
         # don't do anything if the user clicked a pressed button
         pass
 
+def on_zoom_level_changed(value):
+    newvalue = min(global_configs.ZOOM_LEVELS, key=lambda x:abs(x-float(value)))
+    global_configs.ZOOMSLIDER.set(newvalue)
+
 # Dictates what happens when the zoom slider is slidden?
-def zoom_slider_slid(sample_size):
+def perform_zoom(sample_size):
     global_configs.ZOOM_FACTOR = sample_size
     
     # perform the zoom

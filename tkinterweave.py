@@ -37,7 +37,7 @@ def main():
                  width=dimensions.PI_WIDTH,
                  height=dimensions.PI_HEIGHT)
     
-    # populate the ORIG_IMG and IMG global variable which is a PhotoImage that will be drawn on
+    # populate IMG global variable which is a PhotoImage that will be drawn on
     global_configs.IMG = PhotoImage(width=dimensions.PI_WIDTH,
                      height=dimensions.PI_HEIGHT)
     
@@ -103,12 +103,14 @@ def main():
     spray_can_button = Button(frame, image=images.SPRAY_CAN, command=lambda: tool_actions.paint_tool_pressed(spray_can_button, tool_names.SPRAY_CAN))
     global_configs.PAINT_TOOL_BUTTONS = (calligraphy_left_button, calligraphy_right_button, pencil_button, spray_can_button)
 
-    # create the zoom slider and set it's default value to 1 for x1 zoom
+    # create the zoom slider, label, and button and set it's default value to 1 for x1 zoom
     zoomSliderLabel = Label(frame, text=strings.ZOOM)
     zoomSliderLabel.grid(row=2, column=0, columnspan=2)
-    global_configs.ZOOMSLIDER = Scale(frame, from_=0.5, to=4, resolution=0.5, command=lambda _: tool_actions.zoom_slider_slid(float(global_configs.ZOOMSLIDER.get())))
+    global_configs.ZOOMSLIDER = Scale(frame, from_=4, to=0.5, resolution=0.5, command=tool_actions.on_zoom_level_changed)
     global_configs.ZOOMSLIDER.set(global_configs.ZOOM_FACTOR)
     global_configs.ZOOMSLIDER.grid(row=3, column=0, rowspan=2, columnspan=2)
+    zoomButton = Button(frame, image=images.MAGNIFYING_GLASS, command=lambda: tool_actions.perform_zoom(float(global_configs.ZOOMSLIDER.get())))
+    zoomButton.grid(row=5, column=0, rowspan=2, columnspan=2)
     
     # arrange the buttons in a grid formation inside the frame
     pencil_button.grid(row=0, column=0)
