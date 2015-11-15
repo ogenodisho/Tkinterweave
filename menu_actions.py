@@ -63,7 +63,7 @@ def do_about(window):
     toplevel = Toplevel()
     toplevel.title("About Tkinterweave")
     toplevel.geometry("%dx%d+%d+%d" % (260, 150, geometry[2] + 30, geometry[3] + 80))
-    label1 = Label(toplevel, text="Tkinterweave is a reflective paint tool developed for fun in Python!\n", wraplength=200, anchor=W, justify=CENTER)
+    label1 = Label(toplevel, text="Tkinterweave is a reflective paint tool developed in Python!\n", wraplength=200, anchor=W, justify=CENTER)
     label1.pack()
     label2 = Label(toplevel, text="Brought to you by:\n\nOgen Odisho\n\nCopyright (c) 2015.", wraplength=200, anchor=W, justify=CENTER)
     label2.pack()
